@@ -43,8 +43,8 @@ public class QuizFragment extends Fragment
 
    private static final int FLAGS_IN_QUIZ = 10; 
    private static final Context c = null;
-   private int try1=0;
-   private int pointswon=0;
+   private int attempt1=0;
+   private int achivedPoints=0;
    //String[] myIntArray = new String[5];
    List<Integer> myIntArray = new ArrayList<Integer>();
    
@@ -56,7 +56,7 @@ public class QuizFragment extends Fragment
    private Set<String> regionsSet; // world regions in current quiz
    private String correctAnswer; // correct country for the current flag
    private int totalGuesses;
-   private int totalGuesses2;// number of guesses made
+   private int totalAttempts1;// number of guesses made
    private int correctAnswers; // number of correct guesses
    private int guessRows; // number of rows displaying guess Buttons
    private SecureRandom random; // used to randomize the quiz
@@ -147,8 +147,8 @@ public class QuizFragment extends Fragment
    public void resetQuiz() 
    {      
 	   
-	   try1=0;
-	   pointswon=0;
+	   attempt1=0;
+	   achivedPoints=0;
       // use AssetManager to get image file names for enabled regions
       AssetManager assets = getActivity().getAssets(); 
       fileNameList.clear(); // empty list of image file names
@@ -278,27 +278,27 @@ public class QuizFragment extends Fragment
          String guess = guessButton.getText().toString();
          String answer = getCountryName(correctAnswer);
          ++totalGuesses; // increment number of guesses the user has made
-         ++totalGuesses2;
+         ++totalAttempts1;
          
          if (guess.equals(answer)) // if the guess is correct
          {
-        	 if(totalGuesses2==1)
+        	 if(totalAttempts1==1)
         	 {
-        		try1=try1+1;
-                		pointswon =pointswon+10;    		
+        		attempt1=attempt1+1;
+                		achivedPoints =achivedPoints+10;    		
         	 }
 
-        	 if(totalGuesses2==2)
+        	 if(totalAttempts1==2)
         	 {	
-        		pointswon =pointswon+5;
+        		achivedPoints =achivedPoints+5;
            	 }
 
-        	 if(totalGuesses2==3)
+        	 if(totalAttempts1==3)
         	 {
-           		pointswon =pointswon+3;		
+           		achivedPoints =achivedPoints+3;		
         	 }
         	 
-        	 totalGuesses2=0;
+        	 totalAttempts1=0;
             ++correctAnswers; // increment the number of correct answers
 
             // display correct answer in green text
@@ -325,7 +325,7 @@ public class QuizFragment extends Fragment
                         
                         builder.setMessage(
                            getResources().getString(R.string.results, 
-                           totalGuesses, (1000 / (double) totalGuesses),try1,pointswon));
+                           totalGuesses, (1000 / (double) totalGuesses),attempt1,achivedPoints));
                         
                        // Arrays.sort (myIntArray);
                         
